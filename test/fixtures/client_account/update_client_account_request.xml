@@ -1,0 +1,14 @@
+<?xml version='1.0'?>
+<entry xmlns='http://www.w3.org/2005/Atom'
+    xmlns:sc='http://schemas.google.com/structuredcontent/2009'>
+  <title type='text'>ABCD Store</title>
+  <content type='text'>Description of ABCD Store</content>
+  <link rel='alternate' type='text/html' href='http://abcdstore.example.com'/>
+  <sc:adult_content>no</sc:adult_content>
+  <sc:internal_id>437</sc:internal_id>
+  <sc:reviews_url>http://my.site.com/reviews?mo=user-rating&amp;user=437</sc:reviews_url>
+  <sc:adwords_accounts>
+    <sc:adwords_account status="active">123-456-7890</sc:adwords_account>
+    <sc:adwords_account status="inactive">234-567-8901</sc:adwords_account>
+  </sc:adwords_accounts>
+</entry>
