@@ -5,7 +5,7 @@ module Google
       class ClientAccounts
         include Enumerable
         extend  Forwardable
-        def_delegators :@accounts, :length, :each
+        def_delegators :@accounts, :length, :size, :each
 
         def initialize(new_accounts = [])
           @accounts = new_accounts

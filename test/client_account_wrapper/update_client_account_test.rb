@@ -26,8 +26,9 @@ describe Google::Content::Shopping::UpdateClientAccount do
       response = g.perform(Google::Content::Shopping::ClientAccount.new(client_params))
       MultiXml.parse(g.request_body, symbolize_keys: true).must_equal MultiXml.parse(xml_request, symbolize_keys: true)
 
-      refute response.empty?
-      response.must_equal MultiXml.parse(xml_response, symbolize_keys: true)
+      assert g.result.valid?
+
+      MultiXml.parse(g.response_body, symbolize_keys: true).must_equal MultiXml.parse(xml_response, symbolize_keys: true)
     end
   end
 end

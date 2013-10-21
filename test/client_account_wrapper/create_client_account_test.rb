@@ -26,8 +26,10 @@ describe Google::Content::Shopping::CreateClientAccount do
       response = g.perform(Google::Content::Shopping::ClientAccount.new(client_params))
       MultiXml.parse(g.request_body, symbolize_keys: true).must_equal MultiXml.parse(xml_request, symbolize_keys: true)
 
-      refute response.empty?
-      response.must_equal MultiXml.parse(xml_response, symbolize_keys: true)
+      refute g.response_body.empty?
+      MultiXml.parse(g.response_body, symbolize_keys: true).must_equal MultiXml.parse(xml_response, symbolize_keys: true)
+
+      assert g.result.valid?
     end
   end
 end

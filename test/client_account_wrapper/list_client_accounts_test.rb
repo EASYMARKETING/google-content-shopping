@@ -11,8 +11,9 @@ describe Google::Content::Shopping::ListClientAccounts do
       g = Google::Content::Shopping::ListClientAccounts.new("foobar", "123456")
       response = g.perform
 
-      refute response.empty?
-      response.must_equal MultiXml.parse(xml_response, symbolize_keys: true)
+      g.result.length.must_equal  1
+
+      MultiXml.parse(g.response_body, symbolize_keys: true).must_equal MultiXml.parse(xml_response, symbolize_keys: true)
     end
   end
 end

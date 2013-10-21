@@ -9,10 +9,11 @@ describe Google::Content::Shopping::RetrieveSingleClientAccount do
         :status => 200)
 
       g = Google::Content::Shopping::RetrieveSingleClientAccount.new("foobar", "123456", "78901")
-      response = g.perform
+      g.perform
 
-      refute response.empty?
-      response.must_equal MultiXml.parse(xml_response, symbolize_keys: true)
+      MultiXml.parse(g.response_body, symbolize_keys: true).must_equal MultiXml.parse(xml_response, symbolize_keys: true)
+
+      assert g.result.valid?
     end
   end
 end

@@ -13,9 +13,7 @@ module Google
           response = self.class.get("/content/v1/#{parent_account_number}/managedaccounts",
                                      payload)
 
-          # TODO parse into Array of ClientAccounts
-          @result = parse_response(response)
-          @result
+          parse_response(response)
         end
 
         def next_page
@@ -23,6 +21,18 @@ module Google
             # result.
           else
             perform
+          end
+        end
+
+        private
+
+        def parse_response(response)
+          if response.code == 200
+            @response_body = response.body
+            @result = ClientAccounts.from_xml(response)
+            @result
+          else
+            response
           end
         end
       end

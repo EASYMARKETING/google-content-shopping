@@ -12,10 +12,11 @@ module Google
           @client_account_number = client_account_number
 
           @request_body          = ""
+          @response_body         = ""
           @result                = nil
         end
         attr_reader :auth_info, :parent_account_number, :client_account_number,
-         :request_body, :result
+         :request_body, :result, :response_body
 
         private
 
@@ -28,7 +29,9 @@ module Google
 
         def parse_response(response)
           if response.code == 200 || response.code == 201
-            MultiXml.parse(response.body, symbolize_keys: true)
+            @response_body = response.body
+            @result = ClientAccount.from_xml(response.body)
+            @result
           else
             response
           end
