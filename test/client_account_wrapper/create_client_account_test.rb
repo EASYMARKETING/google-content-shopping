@@ -9,10 +9,12 @@ describe Google::Content::Shopping::CreateClientAccount do
         :body => xml_response,
         :status => 201)
 
-      request_options = {
+      client_params = {
+        title: 'ABC Store',
         content: "Description of ABC Store",
+        alternate_link: "http://abcstore.example.com",
+        adult_content: :no,
         internal_id: 'af437',
-        link: "http://abcstore.example.com",
         reviews_url: "http://my.site.com/reviews?mo=user-rating&user=af437",
         adwords_accounts: [
           {status: 'active', number: "123-456-7890"},
@@ -21,7 +23,7 @@ describe Google::Content::Shopping::CreateClientAccount do
       }
 
       g = Google::Content::Shopping::CreateClientAccount.new("foobar", "12345", "54321")
-      response = g.perform('ABC Store', 'no', request_options)
+      response = g.perform(Google::Content::Shopping::ClientAccount.new(client_params))
       MultiXml.parse(g.request_body, symbolize_keys: true).must_equal MultiXml.parse(xml_request, symbolize_keys: true)
 
       refute response.empty?

@@ -3,13 +3,13 @@ module Google
     module Shopping
 
       class CreateClientAccount < ClientAccountWrapper
-        def perform(title, adult_content, options = {})
-          @request_body = client_account_xml(title, adult_content, options).to_xml
+        def perform(client_account, options = {})
+          @request_body = client_account.to_xml
 
           payload = options.merge({body: request_body})
                            .merge(standard_header)
 
-          response = self.class.post("/content/v1/#{parent_account}/managedaccounts",
+          response = self.class.post("/content/v1/#{parent_account_number}/managedaccounts",
                                      payload)
 
           parse_response(response)

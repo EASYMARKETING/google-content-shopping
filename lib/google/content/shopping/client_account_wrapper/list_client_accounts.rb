@@ -10,7 +10,7 @@ module Google
         def perform(options = {})
           payload = options.merge(standard_header)
 
-          response = self.class.get("/content/v1/#{parent_account}/managedaccounts",
+          response = self.class.get("/content/v1/#{parent_account_number}/managedaccounts",
                                      payload)
 
           # TODO parse into Array of ClientAccounts

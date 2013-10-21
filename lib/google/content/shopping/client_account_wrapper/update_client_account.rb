@@ -27,13 +27,13 @@ module Google
         #
         # If you would like to remove all associated AdWords accounts, submit an
         # update with an empty 'adwords_accounts' element.
-        def perform(title, adult_content, options = {})
-          @request_body = client_account_xml(title, adult_content, options).to_xml
+        def perform(client_account, options = {})
+          @request_body = client_account.to_xml
 
           payload = options.merge({body: request_body})
                            .merge(standard_header)
 
-          response = self.class.put("/content/v1/#{parent_account}/managedaccounts/#{client_account}",
+          response = self.class.put("/content/v1/#{parent_account_number}/managedaccounts/#{client_account_number}",
                                      payload)
 
           parse_response(response)

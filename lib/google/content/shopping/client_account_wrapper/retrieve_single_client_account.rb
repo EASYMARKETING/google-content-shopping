@@ -4,7 +4,7 @@ module Google
 
       class RetrieveSingleClientAccount < ClientAccountWrapper
         def perform
-          response = self.class.get("/content/v1/#{parent_account}/managedaccounts/#{client_account}",
+          response = self.class.get("/content/v1/#{parent_account_number}/managedaccounts/#{client_account_number}",
                                      standard_header)
 
           parse_response(response)
