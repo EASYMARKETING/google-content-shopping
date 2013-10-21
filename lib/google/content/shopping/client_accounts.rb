@@ -12,11 +12,35 @@ module Google
         end
 
         def <<(account)
-          account.is_a? ClientAccount ? @accounts << account : false
+          account.is_a?(ClientAccount) ? @accounts << account : false
         end
 
-        def reverse
-          ClientAccounts.new(@accounts.reverse)
+        def ==(other)
+          other.is_a?(self.class) && other.length == length &&
+            all? {|elem| other.include? elem }
+        end
+
+        def self.from_xml(xml_string)
+          parsed_xml = MultiXml.parse(xml_string, symbolize_keys: true)
+
+          new_accounts = ClientAccounts.new
+          entries = parsed_xml[:feed][:entry]
+
+          if entries.is_a?(Array)
+            begin
+              entries.each do |entry|
+                new_accounts << ClientAccount.from_xml(entry)
+              end
+            rescue
+            end
+          elsif entries.is_a?(Hash)
+            begin
+              new_accounts << ClientAccount.from_xml(entries)
+            rescue
+            end
+          end
+
+          new_accounts
         end
       end
 

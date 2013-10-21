@@ -208,7 +208,12 @@ module Google
           # }
 
           begin
-            entry = client_account_parsed_xml[:entry]
+            if client_account_parsed_xml.has_key?(:entry)
+              entry = client_account_parsed_xml[:entry]
+            else
+              entry = client_account_parsed_xml
+            end
+
             entry.each do |key, value|
               begin
                 send("#{key}=", value)
