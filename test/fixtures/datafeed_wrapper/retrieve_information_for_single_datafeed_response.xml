@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entry xmlns="http://www.w3.org/2005/Atom"
+    xmlns:app="http://www.w3.org/2007/app"
+    xmlns:sc="http://schemas.google.com/structuredcontent/2009">
+  <id>http://content.googleapis.com/content/account/78901/datafeed/products/989898</id>
+  <published>2010-12-15T15:47:37.000Z</published>
+  <updated>2010-12-15T15:47:37.000Z</updated>
+  <app:edited>2010-12-15T15:47:37.000Z</app:edited>
+  <title>xyz</title>
+  <link rel="self" type="application/atom+xml" href="https://content.googleapis.com/content/v1/78901/datafeeds/products/989898"/>
+  <link rel="edit" type="application/atom+xml" href="https://content.googleapis.com/content/v1/78901/datafeeds/products/989898"/>
+  <sc:target_country>US</sc:target_country>
+  <sc:content_language>en</sc:content_language>
+  <sc:attribute_language>en</sc:attribute_language>
+  <sc:feed_file_name>xyz</sc:feed_file_name>
+  <sc:feed_type>listings</sc:feed_type>
+  <sc:file_format format="auto">
+    <sc:use_quoted_fields>no</sc:use_quoted_fields>
+  </sc:file_format>
+  <sc:fetch_schedule>
+    <sc:weekday>Monday</sc:weekday>
+    <sc:hour timezone="Europe/London">12</sc:hour>
+    <sc:fetch_url>ftp://ftp.abc.com/electronics.txt</sc:fetch_url>
+  </sc:fetch_schedule>
+  <sc:processing_status status="unprocessed"/>
+</entry>
