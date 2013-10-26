@@ -20,6 +20,17 @@ module Google
           end
         end
 
+        def title=(new_title)
+          begin
+            if new_title.is_a? Hash
+              super(new_title[:__content__])
+            else
+              super
+            end
+          rescue
+          end
+        end
+
         def attribute_language=(new_attribute_language)
           begin
             super(new_attribute_language.strip.downcase.to_sym)
