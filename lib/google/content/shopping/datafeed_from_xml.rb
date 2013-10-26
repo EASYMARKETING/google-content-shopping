@@ -71,7 +71,7 @@ module Google
               result[:fetch_url].delete(:__content__)
             end
 
-            result
+            super(result)
           rescue
           end
         end
@@ -95,7 +95,12 @@ module Google
         private
 
         def parsed_xml_to_attributes(xml)
-          entry = xml[:entry]
+          if xml.has_key? :entry
+            entry = xml[:entry]
+          else
+            entry = xml
+          end
+
           entry.each do |key, value|
             send("#{key}=".to_sym, value)
           end

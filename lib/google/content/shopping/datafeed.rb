@@ -163,7 +163,7 @@ module Google
               return unless new_feed_destination[:destination].is_a? String
               return unless new_feed_destination[:enabled].is_a?(TrueClass) || new_feed_destination[:enabled].is_a?(FalseClass)
 
-              @feed_destination = [new_feed_destination]
+              @feed_destination = [new_feed_destination.clone]
             elsif new_feed_destination.is_a? Array
               return unless new_feed_destination.all? do |elem|
                 keys = elem.keys
@@ -194,17 +194,13 @@ module Google
         def fetch_schedule=(new_fetch_schedule)
           begin
             keys = new_fetch_schedule.keys
-            return unless keys.include?(:fetch_url)
 
-            if keys.size == 3 && keys.include?(:day_of_month) && keys.include?(:hour)
-              @fetch_schedule = new_fetch_schedule
+            return unless keys.include?(:fetch_url) ||
+              (keys.size == 3 && keys.include?(:day_of_month) && keys.include?(:hour)) ||
+              (keys.size == 3 && keys.include?(:weekday) && keys.include?(:hour)) ||
+              (keys.size == 2 && keys.include?(:hour))
 
-            elsif keys.size == 3 && keys.include?(:weekday) && keys.include?(:hour)
-              @fetch_schedule = new_fetch_schedule
-
-            elsif keys.size == 2 && keys.include?(:hour)
-              @fetch_schedule = new_fetch_schedule
-            end
+            @fetch_schedule = new_fetch_schedule.clone
           rescue
           end
         end

@@ -51,6 +51,14 @@ describe Google::Content::Shopping::Datafeed do
            :use_quoted_fields => "no",
            :format => "auto"
         },
+        fetch_schedule: {
+          :weekday => "Monday",
+          :hour => {
+            :timezone => "Europe/London",
+            :number=>"12"
+          },
+          :fetch_url=> {url: "ftp://ftp.abc.com/electronics.txt"}
+        },
         published:          '2010-12-15T15:47:37.000Z',
         edited:             '2010-12-15T15:47:37.000Z',
         updated:            '2010-12-15T15:47:37.000Z',
