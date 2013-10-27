@@ -8,7 +8,7 @@ describe Google::Content::Shopping::ListDatafeedsForClientAccount do
         :body => xml_response,
         :status => 200)
 
-      g = Google::Content::Shopping::ListDatafeedsForClientAccount.new("foobar", "123456")
+      g = Google::Content::Shopping::ListDatafeedsForClientAccount.new(auth_info_object_for_testing, "123456")
       response = g.perform
 
       g.result.length.must_equal  1

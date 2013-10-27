@@ -6,6 +6,9 @@ require 'forwardable'
 require 'nokogiri'
 require 'httparty'
 require 'multi_xml'
+require 'google/api_client'
+
+require "google/content/shopping/auth"
 
 require "google/content/shopping/google_content_api_wrapper"
 

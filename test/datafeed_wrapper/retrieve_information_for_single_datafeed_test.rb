@@ -8,7 +8,7 @@ describe Google::Content::Shopping::RetrieveInformationForSingleDatafeed do
         :body => xml_response,
         :status => 200)
 
-      g = Google::Content::Shopping::RetrieveInformationForSingleDatafeed.new("foobar", "123456", "78901")
+      g = Google::Content::Shopping::RetrieveInformationForSingleDatafeed.new(auth_info_object_for_testing, "123456", "78901")
       g.perform
 
       MultiXml.parse(g.response_body, symbolize_keys: true).must_equal MultiXml.parse(xml_response, symbolize_keys: true)

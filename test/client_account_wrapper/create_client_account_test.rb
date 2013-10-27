@@ -22,7 +22,7 @@ describe Google::Content::Shopping::CreateClientAccount do
         ]
       }
 
-      g = Google::Content::Shopping::CreateClientAccount.new("foobar", "12345", "54321")
+      g = Google::Content::Shopping::CreateClientAccount.new(auth_info_object_for_testing, "12345", "54321")
       response = g.perform(Google::Content::Shopping::ClientAccount.new(client_params))
       MultiXml.parse(g.request_body, symbolize_keys: true).must_equal MultiXml.parse(xml_request, symbolize_keys: true)
 

@@ -8,7 +8,7 @@ describe Google::Content::Shopping::ListClientAccounts do
         :body => xml_response,
         :status => 200)
 
-      g = Google::Content::Shopping::ListClientAccounts.new("foobar", "123456")
+      g = Google::Content::Shopping::ListClientAccounts.new(auth_info_object_for_testing, "123456")
       response = g.perform
 
       g.result.length.must_equal  1
@@ -24,7 +24,7 @@ describe Google::Content::Shopping::ListClientAccounts do
         :body => xml_response,
         :status => 200)
 
-      g = Google::Content::Shopping::ListClientAccounts.new("foobar", "123456")
+      g = Google::Content::Shopping::ListClientAccounts.new(auth_info_object_for_testing, "123456")
       initial_response = g.perform
       g.result.length.must_equal 2
 

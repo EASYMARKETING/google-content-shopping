@@ -31,7 +31,7 @@ describe Google::Content::Shopping::RegisterDatafeedForClientAccount do
         target_country: 'GB'
       }
 
-      g = Google::Content::Shopping::RegisterDatafeedForClientAccount.new("foobar", "12345")
+      g = Google::Content::Shopping::RegisterDatafeedForClientAccount.new(auth_info_object_for_testing, "12345")
       response = g.perform(Google::Content::Shopping::Datafeed.new(params))
       MultiXml.parse(g.request_body, symbolize_keys: true).must_equal MultiXml.parse(xml_request, symbolize_keys: true)
 
