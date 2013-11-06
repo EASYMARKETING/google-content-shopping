@@ -30,6 +30,36 @@ describe Google::Content::Shopping::Datafeed do
 
       MultiXml.parse(datafeed.to_xml, symbolize_keys: true).must_equal MultiXml.parse(xml_from_api_doc, symbolize_keys: true)
     end
+    it "should accept fetch username and password" do
+      xml_from_api_doc = File.open(File.expand_path('../../fixtures/datafeed/datafeed_with_fetchpassword.xml', __FILE__), 'r').read
+
+      params = {
+        title:              'ABC Store Electronics products feed',
+        attribute_language: "en",
+        content_language:   'en',
+        feed_file_name:     'electronics.txt',
+        fetch_username:     'foo',
+        fetch_password:     'bar',
+        fetch_schedule:     {
+          :weekday => "Monday",
+          :hour => {:number=> "12", :timezone => "Europe/London"},
+          :fetch_url => "ftp://ftp.abc.com/electronics.txt"
+          },
+          :file_format => {
+           :delimiter => "pipe",
+           :encoding => "utf8",
+           :use_quoted_fields => "no",
+           :format => "dsv"
+           },
+           target_country: 'GB'
+         }
+
+      datafeed = Google::Content::Shopping::Datafeed.new params
+
+      assert datafeed.valid?
+
+      MultiXml.parse(datafeed.to_xml, symbolize_keys: true).must_equal MultiXml.parse(xml_from_api_doc, symbolize_keys: true)
+    end
   end
 
   describe 'self#from_xml' do

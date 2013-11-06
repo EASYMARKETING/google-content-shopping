@@ -20,7 +20,9 @@ module Google
           :updated,
           :edited,
           :processing_status,
-          :feed_type
+          :feed_type,
+          :fetch_username,
+          :fetch_password
         ]
 
         attr_accessor *ATTRIBUTES
@@ -81,8 +83,14 @@ module Google
                 xml[:sc].hour(timezone: fetch_schedule[:hour][:timezone]) do
                   xml.text fetch_schedule[:hour][:number]
                 end
-                xml[:sc].fetch_url do
-                  xml.text fetch_schedule[:fetch_url]
+                if fetch_username && fetch_password
+                  xml[:sc].fetch_url(username: fetch_username, password: fetch_password) do
+                    xml.text fetch_schedule[:fetch_url]
+                  end
+                else
+                  xml[:sc].fetch_url do
+                    xml.text fetch_schedule[:fetch_url]
+                  end
                 end
               end if fetch_schedule
 
