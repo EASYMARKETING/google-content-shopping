@@ -4,6 +4,7 @@ module Google
 
       class ClientAccount
         ATTRIBUTES = [
+          :id,
           :title,
           :content,
           :alternate_link,
@@ -98,6 +99,19 @@ module Google
         def ==(other)
           other.is_a?(self.class) && other.respond_to?(:to_h) &&
             other.to_h == to_h
+        end
+
+        def id=(new_id)
+          begin
+            parts = new_id.split('/')
+            if parts.size > 1
+              # if new_id coming from xml like: http://content.googleapis.com/content/account/78901
+              @id = parts.last
+            else
+              @id = new_id
+            end
+          rescue
+          end
         end
 
         def link=(new_link)

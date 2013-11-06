@@ -31,6 +31,7 @@ describe Google::Content::Shopping::ClientAccount do
       xml_from_api_doc = File.open(File.expand_path('../../fixtures/client_account/client_account_from_google.xml', __FILE__), 'r').read
 
       params = {
+        id:             "78901",
         title:          'ABC Store',
         content:        "Description of ABC Store",
         alternate_link: "http://abcstore.example.com",

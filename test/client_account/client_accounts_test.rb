@@ -6,6 +6,7 @@ describe Google::Content::Shopping::ClientAccounts do
       xml_from_api_doc = File.open(File.expand_path('../../fixtures/client_account/client_accounts_from_google.xml', __FILE__), 'r').read
 
       params = {
+        id:             '78901',
         title:          'ABC Store',
         content:        "Description of ABC Store",
         alternate_link: "http://abcstore.example.com",
@@ -27,6 +28,7 @@ describe Google::Content::Shopping::ClientAccounts do
       expected_client_accounts << expected_client_account1
       params2 = params.dup
       params2[:title] = 'ABCD Store'
+      params2[:id] = '78901'
       expected_client_account2 = Google::Content::Shopping::ClientAccount.new params2
       expected_client_accounts << expected_client_account2
 
