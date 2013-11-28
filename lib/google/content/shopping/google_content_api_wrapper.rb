@@ -23,8 +23,10 @@ module Google
 
         def standard_header
           {
-            'Content-Type'  => 'application/atom+xml',
-            'Authorization' => "Bearer #{auth_info.access_token}"
+            headers: {
+              'Content-Type'  => 'application/atom+xml',
+              'Authorization' => "Bearer #{auth_info.access_token}"
+            }
           }
         end
       end
