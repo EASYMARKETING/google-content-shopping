@@ -5,8 +5,8 @@ require 'minitest/pride'
 require 'webmock/minitest'
 require 'pry'
 
-Struct.new('TestAuth', :access_token)
+Struct.new('TestAuth', :access_token_header)
 
 def auth_info_object_for_testing
-  Struct::TestAuth.new('foobar')
+  Struct::TestAuth.new('Bearer foobar')
 end

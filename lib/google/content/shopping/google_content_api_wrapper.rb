@@ -7,8 +7,8 @@ module Google
         base_uri 'content.googleapis.com'
 
         def initialize(auth_info)
-          unless auth_info.respond_to?(:access_token) && auth_info.access_token.is_a?(String)
-            raise ArgumentError, 'The auth_info object must respond to the access_token method'
+          unless auth_info.respond_to?(:access_token_header) && auth_info.access_token_header.is_a?(String)
+            raise ArgumentError, 'The auth_info object must respond to the access_token_header method'
           end
 
           @auth_info             = auth_info
@@ -25,7 +25,7 @@ module Google
           {
             headers: {
               'Content-Type'  => 'application/atom+xml',
-              'Authorization' => "Bearer #{auth_info.access_token}"
+              'Authorization' => auth_info.access_token_header
             }
           }
         end

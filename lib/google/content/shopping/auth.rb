@@ -3,27 +3,56 @@ module Google
     module Shopping
 
       class Auth
-        def initialize(private_key_location, email_address)
-          @private_key_location = private_key_location
-          @email_address        = email_address
+        def initialize(content_for_shopping_config_filelocation)
+          @config_file_location = content_for_shopping_config_filelocation
+          config_file_content = YAML::load_file(content_for_shopping_config_filelocation)
+          config              = AdsCommon::Config.new(config_file_content)
 
-          @key = Google::APIClient::PKCS12.load_key(@private_key_location, 'notasecret')
-          @service_account = Google::APIClient::JWTAsserter.new(
-            # Example email_address:
-            # '123456-abcdef@developer.gserviceaccount.com',
-            @email_address,
-            'https://www.googleapis.com/auth/structuredcontent',
-            @key
-          )
+          @credential_handler    = AdsCommon::CredentialHandler.new(config)
+          @authorization_handler = AdsCommon::Auth::OAuth2Handler.new(config_file_content, 'https://www.googleapis.com/auth/structuredcontent')
         end
 
-        def access_token
-          if @authorization && !@authorization.expired?
-            @authorization.access_token
-          else
-            @authorization = @service_account.authorize
-            @authorization.access_token
+        def access_token_header
+          @authorization_handler.auth_string(@credential_handler.credentials)
+        end
+
+        # SHOULD ONLY BE USED TO FETCH THE AUTH_TOKEN WHEN IT IS NOT PRESENT
+        # IN THE CONFIG FILE OR HAS EXPIRED FOR GOOD
+        def fetch_auth_token
+          token = run_authorization do |auth_url|
+            puts "Please navigate to URL:\n\t%s" % auth_url
+            print 'log in and type the verification code: '
+            verification_code = gets.chomp
+            verification_code
           end
+
+          # Store the new config value in the config file
+          AdsCommon::Utils.save_oauth2_token(@config_file_location, token)
+        end
+
+        private
+
+        def run_authorization(&block)
+          token = @authorization_handler.get_token()
+
+          # If token is invalid ask for a new one.
+          if token.nil?
+            begin
+              credentials = @credential_handler.credentials
+              token = @authorization_handler.get_token(credentials)
+            rescue AdsCommon::Errors::OAuth2VerificationRequired => e
+              verification_code = (block_given?) ? yield(e.oauth_url) : nil
+              # Retry with verification code if one provided.
+              if verification_code
+                @credential_handler.set_credential(
+                    :oauth2_verification_code, verification_code)
+                retry
+              else
+                raise e
+              end
+            end
+          end
+          return token
         end
       end
 
