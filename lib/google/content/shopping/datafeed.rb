@@ -77,9 +77,6 @@ module Google
               end
 
               xml[:sc].fetch_schedule do
-                xml[:sc].weekday do
-                  xml.text fetch_schedule[:weekday]
-                end
                 xml[:sc].hour(timezone: fetch_schedule[:hour][:timezone]) do
                   xml.text fetch_schedule[:hour][:number]
                 end

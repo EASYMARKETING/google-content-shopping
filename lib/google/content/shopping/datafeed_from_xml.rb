@@ -113,7 +113,10 @@ module Google
           end
 
           entry.each do |key, value|
-            send("#{key}=".to_sym, value)
+            begin
+              send("#{key}=".to_sym, value)
+            rescue
+            end
           end
         end
       end
