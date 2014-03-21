@@ -24,6 +24,7 @@ require "google/content/shopping/client_account_wrapper/delete_client_account"
 require "google/content/shopping/client_account_wrapper/list_client_accounts"
 require "google/content/shopping/client_account_wrapper/retrieve_single_client_account"
 require "google/content/shopping/client_account_wrapper/update_client_account"
+require "google/content/shopping/client_account_wrapper/retrieve_data_quality"
 
 require "google/content/shopping/datafeed"
 require 'google/content/shopping/datafeed_from_xml'
