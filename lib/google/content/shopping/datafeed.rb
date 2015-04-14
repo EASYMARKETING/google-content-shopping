@@ -50,54 +50,64 @@ module Google
 
         def to_xml
           builder = Nokogiri::XML::Builder.new do |xml|
-            xml.entry('xmlns' => 'http://www.w3.org/2005/Atom',
-              'xmlns:sc' => 'http://schemas.google.com/structuredcontent/2009') do
-              xml.title(type: 'text') do
+            xml.datafeed do
+              xml.name do
                 xml.text title
               end
 
-              xml[:sc].attribute_language do
+              xml.attribute_language do
                 xml.text attribute_language
               end
 
-              xml[:sc].channel do
-                xml.text channel
-              end if channel
+              # xml[:sc].channel do
+              #   xml.text channel
+              # end if channel
 
-              xml[:sc].content_language do
+              xml.content_language do
                 xml.text content_language
               end
 
-              feed_destination.each do |dest|
-                xml[:sc].feed_destination(dest: dest[:destination], enabled: dest[:enabled])
+              xml.intended_destinations do 
+                feed_destination.each do |dest|
+                  xml.destination do
+                    xml.text dest[:destination]
+                  end
+                end
               end
 
-              xml[:sc].feed_file_name do
+              xml.file_name do
                 xml.text feed_file_name
               end
 
-              xml[:sc].fetch_schedule do
-                xml[:sc].hour(timezone: fetch_schedule[:hour][:timezone]) do
+              xml.fetch_schedule do
+                xml.time_zone do
+                  xml.text fetch_schedule[:hour][:timezone]
+                end
+                xml.hour do
                   xml.text fetch_schedule[:hour][:number]
                 end
+
                 if fetch_username && fetch_password
-                  xml[:sc].fetch_url(username: fetch_username, password: fetch_password) do
-                    xml.text fetch_schedule[:fetch_url]
+                  xml.username do
+                    xml.text fetch_username
                   end
-                else
-                  xml[:sc].fetch_url do
-                    xml.text fetch_schedule[:fetch_url]
+                  xml.password do
+                    xml.text fetch_password
                   end
+                end
+ 
+                xml.fetch_url do
+                  xml.text fetch_schedule[:fetch_url]
                 end
               end if fetch_schedule
 
-              xml[:sc].file_format(format: file_format[:format]) do
-                xml[:sc].delimiter file_format[:delimiter] if file_format[:delimiter]
-                xml[:sc].encoding  file_format[:encoding] if file_format[:encoding]
-                xml[:sc].use_quoted_fields file_format[:use_quoted_fields] if file_format[:use_quoted_fields]
+              xml.format do
+                xml.column_delimiter file_format[:delimiter] if file_format[:delimiter]
+                xml.file_encoding    file_format[:encoding] if file_format[:encoding]
+                xml.quoting_mode     file_format[:use_quoted_fields] if file_format[:use_quoted_fields]
               end
 
-              xml[:sc].target_country do
+              xml.target_country do
                 xml.text target_country
               end
             end
