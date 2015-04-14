@@ -9,7 +9,7 @@ module Google
           payload = options.merge({body: request_body})
                            .merge(standard_header)
 
-          response = self.class.post("/content/v1/#{client_account_number}/datafeeds/products",
+          response = self.class.post("/content/v2/#{client_account_number}/datafeeds",
                                      payload)
 
           parse_response(response)

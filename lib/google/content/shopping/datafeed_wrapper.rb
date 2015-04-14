@@ -15,8 +15,7 @@ module Google
 
         def parse_response(response)
           if response.code == 200 || response.code == 201
-            @response_body = response.body
-            @result = Datafeed.from_xml(response.body)
+            @result = Datafeed.from_json(response)
             @result
           else
             response

@@ -8,10 +8,10 @@ module Google
 
           payload = options.merge({body: request_body})
                            .merge(standard_header)
-          binding.pry
+
           response = self.class.post("/content/v2/#{parent_account_number}/accounts",
                                      payload)
-          binding.pry
+
           parse_response(response)
         end
       end

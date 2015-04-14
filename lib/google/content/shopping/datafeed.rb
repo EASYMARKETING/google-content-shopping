@@ -9,6 +9,7 @@ module Google
           :attribute_language,
           :channel,
           :content_language,
+          :content_type,
           :feed_destination,
           :feed_file_name,
           :fetch_schedule,
@@ -67,6 +68,10 @@ module Google
                 xml.text content_language
               end
 
+              xml.content_type do
+                xml.text content_type
+              end
+
               xml.intended_destinations do 
                 feed_destination.each do |dest|
                   xml.destination do
@@ -118,6 +123,11 @@ module Google
         def self.from_xml(xml)
           data_feed_from_xml = DatafeedFromXml.new(xml)
           data_feed_from_xml.valid? ? new(data_feed_from_xml.to_h) : false
+        end
+
+        def self.from_json(json)
+          # Should do proper conversion but will do for now
+          new({:id => json["datafeed"]["id"]})
         end
 
         def to_h
