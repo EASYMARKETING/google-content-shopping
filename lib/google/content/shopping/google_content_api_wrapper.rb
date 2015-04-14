@@ -4,7 +4,7 @@ module Google
 
       class GoogleContentApiWrapper
         include HTTParty
-        base_uri 'www.googleapis.com'
+        base_uri 'https://www.googleapis.com'
 
         def initialize(auth_info)
           unless auth_info.respond_to?(:access_token_header) && auth_info.access_token_header.is_a?(String)

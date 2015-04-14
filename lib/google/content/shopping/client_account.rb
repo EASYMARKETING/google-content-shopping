@@ -37,7 +37,7 @@ module Google
         def to_xml
           builder = Nokogiri::XML::Builder.new do |xml|
             xml.account do
-              xml.name(type: 'text') do
+              xml.name do
                 xml.text title
               end
 
@@ -45,7 +45,9 @@ module Google
               #   xml.text content
               # end if content
 
-              xml.website_url(rel: "alternate", type: 'text/html', href: alternate_link) if alternate_link
+              xml.website_url do
+                xml.text alternate_link
+              end if alternate_link
 
               xml.adult_content do
                 xml.text adult_content
