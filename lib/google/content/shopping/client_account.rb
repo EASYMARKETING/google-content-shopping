@@ -61,13 +61,19 @@ module Google
                 xml.text reviews_url
               end if reviews_url
 
-              xml[:sc].adwords_links do
-                adwords_links.each do |ac|
-                  xml.adwords_link(status: ac[:status]) do
-                    xml.text ac[:number]
+              xml.adwords_links do
+                adwords_accounts.each do |ac|
+                  xml.adwords_link do
+                    xml.adwords_id do
+                      xml.text ac[:number]
+                    end
+                    xml.status do 
+                      xml.text ac[:status]
+                    end
                   end
                 end
               end if adwords_accounts
+
             end
           end
           builder.to_xml
