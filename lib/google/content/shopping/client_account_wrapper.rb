@@ -16,8 +16,7 @@ module Google
 
         def parse_response(response)
           if response.code == 200 || response.code == 201
-            @response_body = response.body
-            @result = ClientAccount.from_xml(response.body)
+            @result = ClientAccount.from_json(response)
             @result || response
           else
             response

@@ -50,7 +50,7 @@ module Google
               end if alternate_link
 
               xml.adult_content do
-                xml.text adult_content
+                xml.text(adult_content ? "true" : "false")
               end
 
               xml.seller_id do
@@ -90,6 +90,19 @@ module Google
           client_account.parsed_xml_to_attributes parsed_xml
 
           client_account.valid? ? client_account : false
+        end
+
+        def self.from_json(client_account_json)
+          client_account = new({})
+          
+          data = client_account_json["account"]
+          client_account.id             = data["id"]
+          client_account.title          = data["name"]
+          client_account.alternate_link = data["website_url"]
+          client_account.internal_id    = data["seller_id"]
+          # client_account.adult_content  = data["adult_content"]
+          # And possibly other attributes
+          client_account
         end
 
         def to_h
