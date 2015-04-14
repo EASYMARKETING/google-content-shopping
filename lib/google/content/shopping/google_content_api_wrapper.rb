@@ -24,7 +24,7 @@ module Google
         def standard_header
           {
             headers: {
-              'Content-Type'  => 'application/atom+xml',
+              'Content-Type'  => 'application/xml',
               'Authorization' => auth_info.access_token_header
             }
           }

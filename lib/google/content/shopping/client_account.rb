@@ -36,33 +36,32 @@ module Google
 
         def to_xml
           builder = Nokogiri::XML::Builder.new do |xml|
-            xml.entry('xmlns' => 'http://www.w3.org/2005/Atom',
-              'xmlns:sc' => 'http://schemas.google.com/structuredcontent/2009') do
-              xml.title(type: 'text') do
+            xml.account do
+              xml.name(type: 'text') do
                 xml.text title
               end
 
-              xml.content(type: 'text') do
-                xml.text content
-              end if content
+              # xml.content(type: 'text') do
+              #   xml.text content
+              # end if content
 
-              xml.link(rel: "alternate", type: 'text/html', href: alternate_link) if alternate_link
+              xml.website_url(rel: "alternate", type: 'text/html', href: alternate_link) if alternate_link
 
-              xml[:sc].adult_content do
+              xml.adult_content do
                 xml.text adult_content
               end
 
-              xml[:sc].internal_id do
+              xml.seller_id do
                 xml.text internal_id
               end if internal_id
 
-              xml[:sc].reviews_url do
+              xml.reviews_url do
                 xml.text reviews_url
               end if reviews_url
 
-              xml[:sc].adwords_accounts do
-                adwords_accounts.each do |ac|
-                  xml[:sc].adwords_account(status: ac[:status]) do
+              xml[:sc].adwords_links do
+                adwords_links.each do |ac|
+                  xml.adwords_link(status: ac[:status]) do
                     xml.text ac[:number]
                   end
                 end
