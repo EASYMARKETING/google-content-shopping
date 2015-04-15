@@ -4,10 +4,10 @@ module Google
 
       class DeleteDatafeedFromClientAccount < DatafeedWrapper
         def perform
-          response = self.class.delete("/content/v1/#{client_account_number}/datafeeds/products/#{datafeed_id}",
+          response = self.class.delete("/content/v2/#{client_account_number}/datafeeds/#{datafeed_id}",
                                        standard_header)
 
-          response.code == 200
+          response.code == 204
         end
       end
 
