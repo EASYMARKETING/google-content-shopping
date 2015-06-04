@@ -8,8 +8,8 @@ Gem::Specification.new do |spec|
   spec.version       = Google::Content::Shopping::VERSION
   spec.authors       = ["Patrick Detlefsen"]
   spec.email         = ["patrick.detlefsen@gmail.com"]
-  spec.description   = %q{TODO: Write a gem description}
-  spec.summary       = %q{TODO: Write a gem summary}
+  spec.description   = "Description"
+  spec.summary       = "Summary"
   spec.homepage      = ""
   spec.license       = "MIT"
 
