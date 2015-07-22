@@ -3,11 +3,13 @@ module Google
     module Shopping
 
       class Auth
-        def initialize(content_for_shopping_config_filelocation)
+        def initialize(content_for_shopping_config_filelocation, credentials = nil)
           @config_file_location = content_for_shopping_config_filelocation
-          config_file_content = YAML::load_file(content_for_shopping_config_filelocation)
-          config              = AdsCommon::Config.new(config_file_content)
+          config_file_content   = YAML::load_file(content_for_shopping_config_filelocation)
 
+          config_file_content[:authentication][:oauth2_token].merge!(credentials) if credentials
+
+          config                 = AdsCommon::Config.new(config_file_content)
           @credential_handler    = AdsCommon::CredentialHandler.new(config)
           @authorization_handler = AdsCommon::Auth::OAuth2Handler.new(config_file_content, 'https://www.googleapis.com/auth/content')
         end
