@@ -33,7 +33,6 @@ module Google
           :attribute_language,
           :content_language,
           :feed_file_name,
-          :file_format,
           :target_country
         ]
 
@@ -110,7 +109,7 @@ module Google
                 xml.column_delimiter file_format[:delimiter] if file_format[:delimiter]
                 xml.file_encoding    file_format[:encoding] if file_format[:encoding]
                 xml.quoting_mode     file_format[:use_quoted_fields] if file_format[:use_quoted_fields]
-              end
+              end if file_format
 
               xml.target_country do
                 xml.text target_country
