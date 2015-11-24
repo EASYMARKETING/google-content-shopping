@@ -11,7 +11,7 @@ module Google
 
           config                 = AdsCommon::Config.new(config_file_content)
           @credential_handler    = AdsCommon::CredentialHandler.new(config)
-          @authorization_handler = AdsCommon::Auth::OAuth2Handler.new(config_file_content, 'https://www.googleapis.com/auth/content')
+          @authorization_handler = AdsCommon::Auth::OAuth2Handler.new(config, 'https://www.googleapis.com/auth/content')
         end
 
         def access_token_header
