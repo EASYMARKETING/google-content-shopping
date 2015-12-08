@@ -4,7 +4,7 @@ module Google
 
       class ListDatafeedsForClientAccount < DatafeedWrapper
         def perform(options = {})
-          perform_for_endpoint("/content/v1/#{client_account_number}/datafeeds/products", options)
+          perform_for_endpoint("/content/v2/#{client_account_number}/datafeeds", options)
         end
 
         def next_page(options = {})
@@ -33,9 +33,11 @@ module Google
 
         def parse_response(response)
           if response.code == 200
-            @response_body = response.body
-            @result = Datafeeds.from_xml(response)
-            @result
+            #@response_body = response.body
+            #@result = Datafeeds.from_xml(response.body)
+            #@result
+
+            @result = JSON.parse(response.body)["resources"]
           else
             response
           end

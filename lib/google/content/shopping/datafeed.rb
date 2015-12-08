@@ -51,6 +51,10 @@ module Google
         def to_xml
           builder = Nokogiri::XML::Builder.new do |xml|
             xml.datafeed do
+              xml.id do
+                xml.text id
+              end if id.present?
+
               xml.name do
                 xml.text title
               end
@@ -216,6 +220,11 @@ module Google
         #   :fetch_url => "ftp://ftp.abc.com/electronics.txt"
         # }
         def fetch_schedule=(new_fetch_schedule)
+          if new_fetch_schedule.blank?
+            @fetch_schedule = nil
+            return
+          end
+
           begin
             keys = new_fetch_schedule.keys
 
