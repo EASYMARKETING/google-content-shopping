@@ -11,7 +11,7 @@ module Google
           response = self.class.delete("/content/v2/#{parent_account_number}/accounts/#{client_account_number}",
                                        standard_header)
 
-          response.code == 200
+          response.blank?
         end
       end
 
